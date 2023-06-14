@@ -43,6 +43,12 @@
     <ClCompile Include="layerStandardItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Drawing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Useui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="layerTreeItem.h">
@@ -51,8 +57,13 @@
     <ClInclude Include="layerStandardItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Qtree.h">
+    <ClInclude Include="Useui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="Drawing.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
 </Project>

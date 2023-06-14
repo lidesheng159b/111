@@ -83,17 +83,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Useui.cpp" />
     <QtRcc Include="IMGPro.qrc" />
     <QtUic Include="IMGPro.ui" />
     <QtMoc Include="mainWindow.h" />
+    <ClCompile Include="Drawing.cpp" />
     <ClCompile Include="layerStandardItem.cpp" />
     <ClCompile Include="mainWindow.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Useui.h" />
+    <QtMoc Include="Drawing.h" />
     <ClInclude Include="layerTreeItem.h" />
     <ClInclude Include="layerStandardItem.h" />
-    <ClInclude Include="Qtree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

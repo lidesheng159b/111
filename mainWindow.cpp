@@ -6,31 +6,32 @@
 #include <QtWidgets>
 #include <QtWidgets/QApplication>
 #include <QtCore/qbytearray.h>
-#pragma execution_character_set("utf-8")    // 解决汉字乱码问题，注意！！！
+//#pragma execution_character_set("utf-8")    // 解决汉字乱码问题，注意！！！
 IMGPro::IMGPro(QWidget *parent): QMainWindow(parent)
 {
     //setupUi(this) 函数接受当前窗口对象的指针作为参数，以便将 UI 定义中的控件和部件与窗口对象关联起来。
     ui.setupUi(this);
-    //初始化资源
+    //ui_init(&ui);
+    
+    //初始化图层列表资源
     InitSource();
-    //this->resize(400, 400);
-    helloworld();
-
+  
     // 标题大小
-    setWindowTitle("图像");
+    setWindowTitle(QStringLiteral("图像"));
 
     // 软件图标
-    setWindowIcon(QIcon("E:/嘉然表情包/试图把我激怒（修复版）/1.PNG"));
+    setWindowIcon(QIcon(QStringLiteral("E:/嘉然表情包/试图把我激怒（修复版）/1.PNG")));
 
     // 界面大小
     resize(QApplication::desktop()->width() * 0.9, QApplication::desktop()->height() * 0.9);
     move(QApplication::desktop()->width() * 0.05, QApplication::desktop()->height() * 0.01);
-
+    //ui.treeView->resize(QApplication::desktop()->width() * 0.9, QApplication::desktop()->height() * 0.9);
+    ui.treeView->setFixedHeight(QApplication::desktop()->height() * 0.9);
     // 第一个菜单
-    QMenu* menu1 = menuBar()->addMenu(tr("读取文件"));
+    QMenu* menu1 = menuBar()->addMenu(QStringLiteral("读取文件"));
     // 创建子菜单，第一个参数QIcon为添加图标，注意路径是否正确，第二个参数是子菜单的显示文本
-    QAction* act1_1 = new QAction(QIcon("E:/嘉然表情包/试图把我激怒（修复版）/1.PNG"), tr("读取shp文件"), this);
-    QAction* act1_2 = new QAction(QIcon("E:/嘉然表情包/试图把我激怒（修复版）/1.PNG"), tr("读取自定义文件"), this);
+    QAction* act1_1 = new QAction(QIcon(QStringLiteral("E:/嘉然表情包/试图把我激怒（修复版）/1.PNG")), QStringLiteral("读取shp文件"), this);
+    QAction* act1_2 = new QAction(QIcon(QStringLiteral("E:/嘉然表情包/试图把我激怒（修复版）/1.PNG")), QStringLiteral("读取自定义文件"), this);
     // 创建快捷方式：Ctrl+N，如果想自定义快捷键，可以设置为act->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_N));
     //act1->setShortcuts(QKeySequence::New);//默认ctrl+n
     // 子菜单触发时执行槽函数
@@ -40,26 +41,28 @@ IMGPro::IMGPro(QWidget *parent): QMainWindow(parent)
     menu1->addAction(act1_2);
 
     // 第二个菜单：添加二级菜单
-    QMenu* menu2 = menuBar()->addMenu(tr("图元绘制"));
-    QAction* act2 = new QAction(QIcon("E:/嘉然表情包/试图把我激怒（修复版）/2.PNG"), tr("图形绘制"), this);//设置图标
+    QMenu* menu2 = menuBar()->addMenu(QStringLiteral("图元绘制"));
+    QAction* act2 = new QAction(QIcon(QStringLiteral("E:/嘉然表情包/试图把我激怒（修复版）/2.PNG")), QStringLiteral("图形绘制"), this);//设置图标
     menu2->addAction(act2); //给菜单赋予这个动作，即给menu2增加一个新的动作，可以理解为子菜单+1
 
     QMenu* submenu = new QMenu();
-    QAction* subact1_1_1 = new QAction(QIcon("E:/嘉然表情包/试图把我激怒（修复版）/3.PNG"), tr("线段(line)"), this);
+    QAction* subact1_1_1 = new QAction(QIcon(QStringLiteral("E:/嘉然表情包/试图把我激怒（修复版）/3.PNG")), QStringLiteral("线段(line)"), this);
     submenu->addAction(subact1_1_1);//给submenu增加一个新的动作，可以理解为子菜单+1
-    QAction* subact1_1_2 = new QAction(QIcon("E:/嘉然表情包/试图把我激怒（修复版）/3.PNG"), tr("点(point)"), this);
+    QAction* subact1_1_2 = new QAction(QIcon(QStringLiteral("E:/嘉然表情包/试图把我激怒（修复版）/3.PNG")), QStringLiteral("点(point)"), this);
     submenu->addAction(subact1_1_2);//给submenu增加一个新的动作，可以理解为子菜单+1
-    QAction* subact1_1_3 = new QAction(QIcon("E:/嘉然表情包/试图把我激怒（修复版）/3.PNG"), tr("多边形(polygon)"), this);
+    QAction* subact1_1_3 = new QAction(QIcon(QStringLiteral("E:/嘉然表情包/试图把我激怒（修复版）/3.PNG")), QStringLiteral("多边形(polygon)"), this);
     submenu->addAction(subact1_1_3);//给submenu增加一个新的动作，可以理解为子菜单+1
-    QAction* subact1_1_4 = new QAction(QIcon("E:/嘉然表情包/试图把我激怒（修复版）/3.PNG"), tr("矩形(rectangle)"), this);
+    QAction* subact1_1_4 = new QAction(QIcon(QStringLiteral("E:/嘉然表情包/试图把我激怒（修复版）/3.PNG")), QStringLiteral("矩形(rectangle)"), this);
     submenu->addAction(subact1_1_4);//给submenu增加一个新的动作，可以理解为子菜单+1
-    QAction* subact1_1_5 = new QAction(QIcon("E:/嘉然表情包/试图把我激怒（修复版）/3.PNG"), tr("圆(circle)"), this);
+    QAction* subact1_1_5 = new QAction(QIcon(QStringLiteral("E:/嘉然表情包/试图把我激怒（修复版）/3.PNG")), QStringLiteral("圆(circle)"), this);
     submenu->addAction(subact1_1_5);//给submenu增加一个新的动作，可以理解为子菜单+1
-    QAction* subact1_1_6 = new QAction(QIcon("E:/嘉然表情包/试图把我激怒（修复版）/3.PNG"), tr("扇形(sector)"), this);
+    QAction* subact1_1_6 = new QAction(QIcon(QStringLiteral("E:/嘉然表情包/试图把我激怒（修复版）/3.PNG")), QStringLiteral("扇形(sector)"), this);
     submenu->addAction(subact1_1_6);//给submenu增加一个新的动作，可以理解为子菜单+1
 
     //什么时候位于菜单末尾了就不用创建QMenu，直接QAction
-    //connect(subact, SIGNAL(triggered()), this, SLOT(subSlot()));
+
+   
+
 
     act2->setMenu(submenu); // 在act2这个子菜单引出这个menu
 
@@ -82,7 +85,14 @@ IMGPro::IMGPro(QWidget *parent): QMainWindow(parent)
     act1_1->setStatusTip(tr("子菜单"));//给这个动作添加提示文本（在左下角）
     
 
-    //************************************************************************
+
+    //****************************************************//
+    //                      connect                       //
+    //                                                    //
+    // ***************************************************//
+    //connect函数部分
+    //connect(subact1_1_1, SIGNAL(triggered()), this, SLOT(slot_try1()));
+    connect(subact1_1_1, SIGNAL(triggered()), this, SLOT(setStateInMain1()));
 
 }
 
@@ -103,17 +113,11 @@ void PrintLog(QString str)
     QMessageBox::information(nullptr, "", str);
 }
 
-void IMGPro::helloworld() {
-    QPushButton* button = new QPushButton(this);    // QPushButton是QT的按钮类  
-    button->setText(tr("你好，QT !"));               // 按钮显示的文本
-    button->move(100, 100);                          // 重设按钮位置
-    connect(button, SIGNAL(clicked()), this, SLOT(iSlot()));  // 连接信号与槽
-}
 
-void IMGPro::iSlot()                       // 槽函数
-{
-    QMessageBox::information(this, tr("hello"), tr("Hello World!"));//跳出来的提示
-}
+//void IMGPro::iSlot()// 槽函数
+//{
+//    QMessageBox::information(this, tr("hello"), tr("Hello World!"));//跳出来的提示
+//}
 
 void IMGPro::InitSource()
 {
@@ -228,10 +232,17 @@ void IMGPro::InitSource()
             auto curItem = static_cast<layerStandardItem*>((model->itemFromIndex(curIndex)));
             if (curItem != nullptr)
             {
-                QString str = QStringLiteral("天朝");
-                curItem->gTreeData->gName = str.toStdString();
-                curItem->setText(str);
-                PrintLog(QStringLiteral("修改完成"));
+               
+                // 获取用户输入的文本
+                bool ok;
+                QString text = QInputDialog::getText(this, QStringLiteral("修改"), QStringLiteral("请输入修改内容:"), QLineEdit::Normal, curItem->gTreeData->gName.c_str(), &ok);
+                if (ok && !text.isEmpty())
+                {
+                    // 更新数据和UI
+                    curItem->gTreeData->gName = text.toStdString();
+                    curItem->setText(text);
+                    PrintLog(QStringLiteral("修改完成"));
+                }
             }
 
         }
@@ -268,29 +279,28 @@ void IMGPro::InitSource()
         model->setHorizontalHeaderLabels(QStringList() << QStringLiteral("名称") << QStringLiteral("说明"));
         ui.treeView->setModel(model);//设置数据Model,关键.
 
-        rootItem1 = new layerStandardItem(QStringLiteral("北京"));
+        rootItem1 = new layerStandardItem(QStringLiteral("图层1"));//图层1
         model->appendRow(rootItem1);
-
-        layerStandardItem* childItem1_1 = new layerStandardItem(QStringLiteral("故宫"));
+        layerStandardItem* childItem1_1 = new layerStandardItem(QStringLiteral("三角形"));
         rootItem1->appendRow(childItem1_1);
-        layerStandardItem* childItem1_2 = new layerStandardItem(QStringLiteral("子午庙"));
+        layerStandardItem* childItem1_2 = new layerStandardItem(QStringLiteral("四边形"));
         rootItem1->appendRow(childItem1_2);
-        rootItem1->appendRow(new layerStandardItem(QStringLiteral("日月潭")));
-        rootItem1->appendRow(new layerStandardItem(QStringLiteral("中南海")));
+        rootItem1->appendRow(new layerStandardItem(QStringLiteral("折线1")));
+        rootItem1->appendRow(new layerStandardItem(QStringLiteral("折线2")));
 
-        rootItem2 = new layerStandardItem(QStringLiteral("湖北"));
+        rootItem2 = new layerStandardItem(QStringLiteral("图层2"));
         model->appendRow(rootItem2);
         //model->setItem(model->indexFromItem(rootItem2).row(), 1, new layerStandardItem(QStringLiteral("黄鹤楼")));//设置第二列内容.
 
-        layerStandardItem* childItem2_1 = new layerStandardItem(QStringLiteral("武汉"));
+        layerStandardItem* childItem2_1 = new layerStandardItem(QStringLiteral("折线"));
         rootItem2->appendRow(childItem2_1);
         //rootItem2->setChild(childItem2_1->index().row(), 1, new layerStandardItem(QStringLiteral("步行街")));//在第二列添加数据.
 
-        layerStandardItem* childItem2_2 = new layerStandardItem(QStringLiteral("园博园")); //注意这里->rootItem2,通过父类设置其所在的行.
+        layerStandardItem* childItem2_2 = new layerStandardItem(QStringLiteral("折线")); //注意这里->rootItem2,通过父类设置其所在的行.
         rootItem2->appendRow(childItem2_2);
         //rootItem2->setChild(childItem2_2->index().row(),1,new layerStandardItem(QStringLiteral("揽月楼")));
 
-        rootItem2->appendRow(new layerStandardItem(QStringLiteral("白云寺")));
+        rootItem2->appendRow(new layerStandardItem(QStringLiteral("折线")));
     }
 
 }
@@ -306,4 +316,20 @@ void IMGPro::on_treeView_customContextMenuRequested(const QPoint& pos)
     }
 }
 
+
+//connect函数部分记得ctrl+F直接搜connect
+
+
+
+//槽函数实现部分
+
+
+void IMGPro::showErrorDialog(const QString& errorMessage) {
+    QMessageBox::critical(this, QStringLiteral("错误"), errorMessage);
+}
+void IMGPro::setStateInMain1() //设置线
+{
+    //drawingContext.setCurrentState(new DrawingLINESTRING());
+    //drawingContext.draw();
+};
 
